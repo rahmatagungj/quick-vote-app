@@ -1,9 +1,12 @@
 import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head } from "@inertiajs/inertia-react";
-import Button from "@/Components/Button";
+import VoteTab from "@/Components/VoteTab";
+import Alert from "@/Components/Alert";
 
 export default function Dashboard(props) {
+    const [isSuccess, setIsSuccess] = React.useState(false);
+
     return (
         <Authenticated
             auth={props.auth}
@@ -14,15 +17,22 @@ export default function Dashboard(props) {
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="Dashboard - Quick Vote App" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    {isSuccess && (
+                        <Alert color="green">
+                            Successfully voted
+                        </Alert>
+                    )}
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">
-                            Silahkan baca panduan dibawah ini
-                            <br/>
-                        <Button>Chose</Button>
+                            <VoteTab
+                                color="gray"
+                                props={props}
+                                setIsSuccess={setIsSuccess}
+                            />
                         </div>
                     </div>
                 </div>

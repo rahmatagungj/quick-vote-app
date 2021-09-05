@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\VoteController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +26,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function() {
 
-Route::get('/information', function () {
-    return Inertia::render('Information');
-})->middleware(['auth', 'verified'])->name('information');
+    Route::get('', function () {
+        return Inertia::render('Dashboard',[DashboardController::class,'index']);
+    })->name('dashboard');
+
+    Route::get('information', function () {
+        return Inertia::render('Information');
+    })->name('information');
+
+    Route::resource('vote', VoteController::class);
+});
 
 require __DIR__.'/auth.php';

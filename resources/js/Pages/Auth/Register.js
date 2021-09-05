@@ -32,7 +32,7 @@ export default function Register() {
 
     return (
         <Guest>
-            <Head title="Register" />
+            <Head title="Register - Quick Vote App" />
 
             <ValidationErrors errors={errors} />
 
